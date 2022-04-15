@@ -1,0 +1,49 @@
+#This is an entry level project to downloading and manipulating your Amazon purchases. 
+#Amazon webpage: Your account > Your Orders > Orders History Reports to receive your data
+#All work was done in Jupyter Notebooks
+
+#Python package used to manipulate/analyze data and saved under an alias
+import pandas as pd
+
+#Import data/csv file and store as a dataframe 
+df = pd.read_csv('Python_Project_Amazon.csv')
+df.head()
+
+#returns number of rows and columns 
+df.shape
+
+#Fills in all na data and replaces with 0...head() returns 5 rows from the data
+df = df.fillna(0)
+df.head()
+
+#creates new total charged column and replaces old with a float
+df["Total Charged"] = df["Total Charged"].replace('$', '').astype(float)
+df.head()
+
+#sum
+df["Total Charged"].sum()
+
+#mean
+df["Total Charged"].mean()
+
+#median
+df["Total Charged"].median()
+
+#min
+df["Total Charged"].min()
+
+#Changed to new format
+df['Order Date'] = pd.to_datetime(df['Order Date'])
+df.head()
+
+#rot = rotation
+df.plot.bar(x='Order Date', y='Total Charged', rot=90)
+
+daily_orders = df.groupby('Order Date').sum()["Total Charged"]
+daily_orders.head()
+
+#figsize = height and width
+daily_orders.plot.bar(figsize=(20,10))
+
+#color change
+daily_orders.plot.bar(figsize=(20,10), color='#61D199')
