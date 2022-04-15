@@ -1,1 +1,1 @@
-#I am jsut getting started. More to come.
+#This is a list of all the Python projects I've done over the years.
